@@ -1,6 +1,7 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from api.models import Question
 from api.serializers import QuestionSerializer
@@ -21,13 +22,17 @@ def question_list(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def question_create(request):
     """
     Create a one question.
 
     """
+    user = request.user
+    question = Question(author=user)
     if request.method == 'POST':
-        serializer = QuestionSerializer(data=request.data)
+
+        serializer = QuestionSerializer(question, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -55,6 +60,7 @@ def question_detail(request, pk=None):
 
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def question_update(request, pk=None):
     """
     Update all fields of question
@@ -65,6 +71,10 @@ def question_update(request, pk=None):
     except Question.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    # verifying user of this question
+    user = request.user
+    if question.author != user:
+        return Response({'error': 'You do not have permission to update this question.'})
     if request.method == 'PUT':
         serializer = QuestionSerializer(question, data=request.data)
         if serializer.is_valid():
@@ -76,6 +86,7 @@ def question_update(request, pk=None):
 
 
 @api_view(['PATCH'])
+@permission_classes((IsAuthenticated,))
 def question_partial_update(request, pk=None):
     """
     Update partial fields of question
@@ -85,6 +96,11 @@ def question_partial_update(request, pk=None):
         question = Question.objects.get(pk=pk)
     except Question.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+     # verifying user of this question
+    user = request.user
+    if question.author != user:
+        return Response({'error': 'You do not have permission to update this question.'})
 
     if request.method == 'PATCH':
         serializer = QuestionSerializer(question, data=request.data)
@@ -97,11 +113,18 @@ def question_partial_update(request, pk=None):
 
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def question_delete(request, pk=None):
     try:
         question = Question.objects.get(pk=pk)
     except Question.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+     # verifying user of this question
+    user = request.user
+    if question.author != user:
+        return Response({'error': 'You do not have permission to update this question.'})
+
     if request.method == 'DELETE':
         question.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
