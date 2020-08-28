@@ -32,9 +32,11 @@ def calculate_score(request, pk=None):
                 clean_test_essays = []
                 clean_test_essays.append(essay_to_wordlist(
                     content, remove_stopwords=True))
+
                 testDataVecs = getAvgFeatureVecs(
                     clean_test_essays, model, num_features)
                 testDataVecs = np.array(testDataVecs)
+
                 testDataVecs = np.reshape(
                     testDataVecs, (testDataVecs.shape[0], 1, testDataVecs.shape[1]))
 

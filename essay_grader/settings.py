@@ -37,12 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # My apps
     'api',
+    'users',
+
+    # Third party apps
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'drf_yasg',
-    'users'
+
 ]
 AUTH_USER_MODEL = 'users.User'
 
@@ -52,6 +57,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
     )
 }
 MIDDLEWARE = [
