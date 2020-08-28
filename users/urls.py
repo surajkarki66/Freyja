@@ -1,7 +1,7 @@
 from django.urls import path
 from users.views import(
     registration_view,
-    CustomAuthToken
+    CustomAuthToken,
 
 )
 
