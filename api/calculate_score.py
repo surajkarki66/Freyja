@@ -40,7 +40,7 @@ def calculate_score(request, pk=None):
 
                 lstm_model = Model()
                 lstm_model.load_weights(os.path.join(
-                    current_path, "files/final_lstm.h5"))
+                    current_path, "files/essay_model.h5"))
                 preds = lstm_model.predict(testDataVecs)
 
                 if math.isnan(preds):
