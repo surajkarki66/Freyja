@@ -1,0 +1,25 @@
+.Question {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.QuestionSingle {
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 10rem 0 10rem;
+}
+h3{
+    text-decoration: underline;
+    text-decoration-style: double;
+}
+
+.Ptag {
+    font-size: 1.3rem;
+    font-style: italic;
+}
+p{
+    text-align: start;
+}
+.Essay {
+    font-weight: bold;
+}

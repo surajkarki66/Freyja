@@ -1,0 +1,13 @@
+.Questions {
+    margin: 1rem 0 2rem;
+    padding: 2rem 10rem 2rem 10rem;
+    box-sizing: border-box;
+    border: 5px solid grey;
+    border-radius: 50px;
+    box-shadow: 0.5rem 0.7rem gray;
+
+}
+.Questions h1 {
+    text-decoration: underline;
+    text-decoration-style: double;
+}

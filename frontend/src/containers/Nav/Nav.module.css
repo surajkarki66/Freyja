@@ -1,0 +1,59 @@
+.Nav {
+    margin: 0;
+    padding: 0.8rem 2rem 0.5rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    list-style: none;
+    box-sizing: border-box;
+    border-bottom: 3px solid grey;
+
+}
+.TwoElement {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-rows: auto;
+}
+.item1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.item2 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.item3 {
+    grid-column-start: 3;
+    grid-column-end: 3;
+}
+.OneElement {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-rows: auto;
+}
+.item4 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.item5 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.nav {
+    color: white;
+    font-weight: bold;
+}
+.TwoElement a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.OneElement a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
