@@ -7,17 +7,16 @@ import axios from "axios";
 const CreateQuestionsPage = (props) => {
   const [question, setQuestion] = useState();
   const [response, setResponse] = useState(false);
-  let data;
   const onQuestions = (event) => {
     setQuestion(event.target.value);
   };
-  async function onSubmit() {
+  function onSubmit() {
     axios.defaults.headers = {
       Authorization: `Token ${localStorage.getItem("token")}`,
     };
     let data;
     console.log(data);
-    const a = await axios
+    axios
       .get("http://127.0.0.1:8000/api/questions/")
       .then((response) => {
         let id = 1;
@@ -33,7 +32,7 @@ const CreateQuestionsPage = (props) => {
         };
         console.log(data);
       });
-    const d = await axios
+    axios
       .post("http://127.0.0.1:8000/api/question/create/", data)
       .then((response) => setResponse(true))
       .catch((error) => console.log(error));

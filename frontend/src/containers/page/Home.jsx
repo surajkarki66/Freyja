@@ -8,25 +8,25 @@ import Answer from "../Answer/Answer";
 import Grade from "../Grade/Grade";
 import { useEffect } from "react";
 
-function Home(props) {
-  const [questions, setQuestions] = useState(Array()); // Array of questions
-  const [questionsTitle, setQuestionTitle] = useState(Array());
+function Home (props) {
+  const [questions, setQuestions] = useState([]); // Array of questions
+  const [questionsTitle, setQuestionTitle] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(); //current question state
   const [answer, setAnswer] = useState(""); // User answer state
   const [grade, setGrade] = useState(); // Grade result
   const [showGrade, setShowGrade] = useState(false); // For showing the grade.
   const [responseGrade, setResponseGrade] = useState(Object());
-  const [author, setAuthor] = useState(Array());
-  const [date, setDate] = useState(Array());
+  const [author, setAuthor] = useState([]);
+  const [date, setDate] = useState([]);
 
   const fetchQuestions = () => {
     axios
       .get("http://127.0.0.1:8000/api/questions/")
       .then((response) => {
-        let Questions = Array();
-        let Titles = Array();
-        let Author = Array();
-        let Date = Array();
+        let Questions = [];
+        let Titles = [];
+        let Author = [];
+        let Date = [];
         // let d = new Date();
         const dataResponse = response.data;
         for (let key in dataResponse) {
@@ -45,14 +45,20 @@ function Home(props) {
       });
   };
 
-  async function postAnswer() {
+  function postAnswer() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      window.alert('Please wait 2-3 seconds for the model to analyze the grade. Scroll down to view the grading');
+    } else {
+      window.alert('You need to be logged in.');
+    }
     axios.defaults.headers = {
-      Authorization: `Token ${localStorage.getItem("token")}`,
+      Authorization: `Token ${token}`,
     };
     const index =
       questions.findIndex((qs) => qs === currentQuestion.props.questionText) +
       1;
-    const data = await axios
+    axios
       .post("http://127.0.0.1:8000/api/score/" + index + "/", {
         answer: answer,
       })
