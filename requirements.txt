@@ -4,5 +4,4 @@ django-cors-headers
 drf-yasg
 nltk
 numpy
-gensim
-tensorflow
+gensim==3.8.2

@@ -8,7 +8,7 @@ const Nav = (props) => {
 
   const handleLogout = (props) => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
     window.location.reload(false);
   };
   return (

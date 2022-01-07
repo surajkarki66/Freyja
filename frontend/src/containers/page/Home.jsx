@@ -8,58 +8,45 @@ import Answer from "../Answer/Answer";
 import Grade from "../Grade/Grade";
 import { useEffect } from "react";
 
-function Home (props) {
-  const [questions, setQuestions] = useState([]); // Array of questions
-  const [questionsTitle, setQuestionTitle] = useState([]);
+function Home(props) {
+  const [q, setQ] = useState([]);
+  const [id, setId] = useState(undefined);
   const [currentQuestion, setCurrentQuestion] = useState(); //current question state
   const [answer, setAnswer] = useState(""); // User answer state
   const [grade, setGrade] = useState(); // Grade result
   const [showGrade, setShowGrade] = useState(false); // For showing the grade.
   const [responseGrade, setResponseGrade] = useState(Object());
-  const [author, setAuthor] = useState([]);
-  const [date, setDate] = useState([]);
 
   const fetchQuestions = () => {
     axios
       .get("http://127.0.0.1:8000/api/questions/")
       .then((response) => {
-        let Questions = [];
-        let Titles = [];
-        let Author = [];
-        let Date = [];
-        // let d = new Date();
         const dataResponse = response.data;
-        for (let key in dataResponse) {
-          Questions.push(dataResponse[key]["question"]);
-          Titles.push(dataResponse[key]["question"].slice(0, 100));
-          Author.push(dataResponse[key]["username"]);
-          Date.push(dataResponse[key]["timestamp"].slice(0, 10));
-        }
-        setQuestions([...questions, ...Questions]);
-        setQuestionTitle([...questionsTitle, ...Titles]);
-        setAuthor([...author, ...Author]);
-        setDate([...date, ...Date]);
+        setQ(dataResponse);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  const fetchSingleQuestion = (id) => {
+    const question = q.find((qs) => qs.id === id);
+    return question;
+  };
 
   function postAnswer() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      window.alert('Please wait 2-3 seconds for the model to analyze the grade. Scroll down to view the grading');
+      window.alert(
+        "Please wait 2-3 seconds for the model to analyze the grade. Scroll down to view the grading"
+      );
     } else {
-      window.alert('You need to be logged in.');
+      window.alert("You need to be logged in.");
     }
     axios.defaults.headers = {
       Authorization: `Token ${token}`,
     };
-    const index =
-      questions.findIndex((qs) => qs === currentQuestion.props.questionText) +
-      1;
     axios
-      .post("http://127.0.0.1:8000/api/score/" + index + "/", {
+      .post("http://127.0.0.1:8000/api/score/" + id + "/", {
         answer: answer,
       })
       .then((response) => {
@@ -67,7 +54,7 @@ function Home (props) {
         setResponseGrade({ ...responseGrade, ...data });
         let remark;
         if (data.predicted_score <= data.pass_score) {
-          remark = "Not so good!";
+          remark = "Bad!";
         } else if (data.predicted_score >= data.pass_score) {
           remark = "Good job!";
         } else {
@@ -96,15 +83,15 @@ function Home (props) {
   }, []);
 
   const singleQuestionHandler = (id) => {
-    // On click on the question we get id and render the question to dom
+    setId(id);
+    const question = fetchSingleQuestion(id);
     let qs;
+
     qs = (
       <Question
-        id={id}
-        questionText={questions[id]}
-        questionsTitle={questionsTitle[id]}
-        author={author[id]}
-        time={date[id]}
+        questionText={question.question}
+        author={question.username}
+        time={question.timestamp.slice(0, 10)}
         single
       />
     );
@@ -118,10 +105,7 @@ function Home (props) {
   };
   return (
     <div className="App">
-      <Questions
-        questionArray={questionsTitle}
-        singleQuestion={singleQuestionHandler}
-      />
+      <Questions questionArray={q} singleQuestion={singleQuestionHandler} />
       {currentQuestion}
       {currentQuestion ? (
         <Answer

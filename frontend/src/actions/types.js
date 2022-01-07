@@ -1,1 +1,1 @@
-export const SELECTED = 'SELECTED';
+export const SELECTED = "SELECTED";

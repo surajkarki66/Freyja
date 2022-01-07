@@ -27,19 +27,14 @@ const App = () => {
     route = (
       <Switch>
         <Route path="/" exact component={Home} />
-
-        <Route
-          path="/create-questions"
-          exact
-          render={() => <CreateQuestions changed={false} submit={false} />}
-        />
+        <Route path="/create-questions" exact component={CreateQuestions} />
       </Switch>
     );
   } else {
     route = (
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/signup" exact render={() => <Signup />} />
+        <Route path="/signup" exact component={Signup} />
         <Route
           path="/login"
           exact
