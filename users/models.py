@@ -48,20 +48,27 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 
     def __str__(self):
         return self.email
 
-    # For checking permissions. to keep it simple all admin have ALL permissons
+    # For checking permissions. to keep it simple all admin have ALL permissions
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
     # Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
     def has_module_perms(self, app_label):
         return True
+    
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        ordering = ('-id',)
+        indexes = [
+            models.Index(fields=['email', 'username',]),
+        ]
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
