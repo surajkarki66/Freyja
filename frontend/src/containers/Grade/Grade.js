@@ -11,7 +11,6 @@ const Grade = (props) => {
       <h4>Grade: {props.grade}</h4>
       <h5>Full Score:{props.fullScore}</h5>
       <h5>Pass Score:{props.passScore}</h5>
-      <h5>Low Score:{props.lowScore}</h5>
       <p>
         <i>Remarks: {props.remark}</i>
       </p>

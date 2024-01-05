@@ -17,11 +17,9 @@ def welcome_view(request):
         return HttpResponseNotAllowed(['GET'], content_type='application/json')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/user/', include('users.urls')),
     path('', welcome_view, name="home"),
-    *static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 
 ]
 
@@ -45,7 +43,10 @@ if settings.DEBUG:
 
     urlpatterns = [
         *urlpatterns,
+        path('admin/', admin.site.urls),
         path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
         path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
         path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+        *static.static(settings.STATIC_URL,
+                       document_root=settings.STATIC_ROOT),
     ]

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import Axios from "../../axios-url";
 import { Redirect } from "react-router-dom";
 
 import Signup from "../Signup/Signup";
@@ -30,7 +30,7 @@ const SignupPage = (props) => {
       password: Password,
       password2: Password2,
     };
-    axios
+    Axios
       .post("http://127.0.0.1:8000/api/register/", data)
       .then((response) => {
         if (typeof response.data.email === Array) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import axios from "axios";
+import Axios from "../../axios-url";
 
 import Questions from "../Questions/Questions";
 import Question from "../Questions/Question/Question";
@@ -18,8 +18,8 @@ function Home(props) {
   const [responseGrade, setResponseGrade] = useState(Object());
 
   const fetchQuestions = () => {
-    axios
-      .get("http://127.0.0.1:8000/api/questions/")
+    Axios
+      .get("/api/question/")
       .then((response) => {
         const dataResponse = response.data;
         setQ(dataResponse);
@@ -42,11 +42,11 @@ function Home(props) {
     } else {
       window.alert("You need to be logged in.");
     }
-    axios.defaults.headers = {
+    Axios.defaults.headers = {
       Authorization: `Token ${token}`,
     };
-    axios
-      .post("http://127.0.0.1:8000/api/score/" + id + "/", {
+    Axios
+      .post("/api/score/" + id + "/", {
         answer: answer,
       })
       .then((response) => {
@@ -63,7 +63,6 @@ function Home(props) {
         let resultGrade = (
           <Grade
             grade={data.predicted_score}
-            lowScore={data.low_score}
             fullScore={data.full_score}
             passScore={data.pass_score}
             answer={answer}

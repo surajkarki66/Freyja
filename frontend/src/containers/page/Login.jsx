@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import Axios from "../../axios-url";
 import { Redirect } from "react-router-dom";
 
 import Login from "../Login/Login";
@@ -7,7 +7,7 @@ import Login from "../Login/Login";
 const LoginPage = (props) => {
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
-  const [sucess, setSucess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const email = (event) => {
     setEmail(event.target.value);
@@ -20,7 +20,7 @@ const LoginPage = (props) => {
       username: Email,
       password: Password,
     };
-    axios
+    Axios
       .post("http://127.0.0.1:8000/api/login/", data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);

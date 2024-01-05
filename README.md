@@ -22,8 +22,9 @@ This is a web app to grade essay using LSTM model using Django REST, React and T
     make install
    ```
 4. Create a `.env` file in a project root directory and set all the environment variables based on the provided `.env.sample` example.
+5. Go inside the essay_grader directory and find `settings.py`, inside it set `DEBUG = True`.
 
-5. Migrate the database
+6. Migrate the database
    ```bash
     make migrate
     ```

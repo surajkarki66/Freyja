@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import CreateQuestions from "../CreateQuestions/CreateQuestions";
-import axios from "axios";
+import Axios from "../../axios-url";
 
 const CreateQuestionsPage = (props) => {
   const [question, setQuestion] = useState();
@@ -13,11 +13,11 @@ const CreateQuestionsPage = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.defaults.headers = {
+    Axios.defaults.headers = {
       Authorization: `Token ${localStorage.getItem("token")}`,
     };
     let data;
-    axios.get("http://127.0.0.1:8000/api/questions/").then((response) => {
+    Axios.get("http://127.0.0.1:8000/api/questions/").then((response) => {
       let id = 1;
       if (response.data.length !== 0) {
         id = response.data.slice(-1).pop()["id"] + 1;
@@ -29,7 +29,7 @@ const CreateQuestionsPage = (props) => {
         max_score: maxScore,
         username: localStorage.getItem("username"),
       };
-      axios
+      Axios
         .post("http://127.0.0.1:8000/api/question/create/", data)
         .then((response) => {
           console.log(response);
