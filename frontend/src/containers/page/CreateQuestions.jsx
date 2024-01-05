@@ -17,7 +17,7 @@ const CreateQuestionsPage = (props) => {
       Authorization: `Token ${localStorage.getItem("token")}`,
     };
     let data;
-    Axios.get("http://127.0.0.1:8000/api/questions/").then((response) => {
+    Axios.get("/api/question/").then((response) => {
       let id = 1;
       if (response.data.length !== 0) {
         id = response.data.slice(-1).pop()["id"] + 1;
@@ -30,9 +30,8 @@ const CreateQuestionsPage = (props) => {
         username: localStorage.getItem("username"),
       };
       Axios
-        .post("http://127.0.0.1:8000/api/question/create/", data)
-        .then((response) => {
-          console.log(response);
+        .post("/api/question/create/", data)
+        .then((_res) => {
           history.push("/");
         })
         .catch((error) => console.log(error.response.data));

@@ -11,7 +11,7 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
 
-  const onLoginReponse = (tk) => {
+  const onLoginResponse = (tk) => {
     setAuthenticated(true);
   };
 
@@ -38,7 +38,7 @@ const App = () => {
         <Route
           path="/login"
           exact
-          render={() => <Login onSucess={onLoginReponse} />}
+          render={() => <Login onSuccess={onLoginResponse} />}
         />
       </Switch>
     );

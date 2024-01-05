@@ -21,12 +21,12 @@ const LoginPage = (props) => {
       password: Password,
     };
     Axios
-      .post("http://127.0.0.1:8000/api/login/", data)
+      .post("/api/login/", data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.username);
-        setSucess(true);
-        props.onSucess();
+        setSuccess(true);
+        props.onSuccess();
       })
       .catch((error) => {
         if (error.response.data.non_field_errors) {
@@ -36,7 +36,7 @@ const LoginPage = (props) => {
   }
   return (
     <div>
-      {sucess ? <Redirect to="/" /> : null}
+      {success ? <Redirect to="/" /> : null}
       <Login
         emailChange={(event) => email(event)}
         passwordChange={(event) => password(event)}

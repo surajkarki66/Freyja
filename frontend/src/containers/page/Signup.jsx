@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import Signup from "../Signup/Signup";
 
 const SignupPage = (props) => {
-  const [sucess, setSucess] = useState();
+  const [success, setSuccess] = useState();
   const [Email, setEmail] = useState();
   const [Username, setUsername] = useState();
   const [Password, setPassword] = useState();
@@ -31,7 +31,7 @@ const SignupPage = (props) => {
       password2: Password2,
     };
     Axios
-      .post("http://127.0.0.1:8000/api/register/", data)
+      .post("/api/register/", data)
       .then((response) => {
         if (typeof response.data.email === Array) {
           setError(response.data.email[0]);
@@ -39,7 +39,7 @@ const SignupPage = (props) => {
         if (typeof response.data.username === Array) {
           setError(response.data.username[0]);
         } else {
-          setSucess(true);
+          setSuccess(true);
         }
       })
       .catch((error) => {
@@ -58,7 +58,7 @@ const SignupPage = (props) => {
         submit={submit}
         error={Error}
       />
-      {sucess ? <Redirect to="/login" /> : null}
+      {success ? <Redirect to="/login" /> : null}
     </div>
   );
 };

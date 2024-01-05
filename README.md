@@ -42,7 +42,7 @@ This is a web app to grade essay using LSTM model using Django REST, React and T
 
 Now, open the web browser and go to the given address: http://127.0.0.1:8000/
 
-To access the admin panel click here: http://127.0.0.1:8000/admin
+To access the admin panel click here: http://127.0.0.1:8000/admin      (Note: Admin page must be accessible when the setting `DEBUG = True`)
 
 
 Note: There are also lots of REST APIs available that you can check.
