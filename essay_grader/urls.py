@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponseNotAllowed, JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions, status
+from rest_framework.response import Response
 from django.conf.urls import static
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -8,18 +10,20 @@ from django.utils.translation import gettext_lazy as _
 
 admin.site.site_header = _('Freyja administration')
 
-def welcome_view(request):
-    if request.method == 'GET':
-        data = {'message': "Welcome to the Freyja's API!"}
-        return JsonResponse(data)
-    else:
-        data = {'error': 'Not Found'}
-        return HttpResponseNotAllowed(['GET'], content_type='application/json')
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def api_status(request):
+    data = {
+        "success": True,
+        "message": "Freyja API is up and running!"
+    }
+    return Response(data, status.HTTP_200_OK)
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/user/', include('users.urls')),
-    path('', welcome_view, name="home"),
+    path('', api_status, name="home"),
 
 ]
 
@@ -43,7 +47,6 @@ if settings.DEBUG:
 
     urlpatterns = [
         *urlpatterns,
-        path('admin/', admin.site.urls),
         path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
         path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
         path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
