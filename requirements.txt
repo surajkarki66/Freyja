@@ -7,3 +7,4 @@ gensim==4.3.2
 tensorflow
 django-environ
 drf-yasg
+gunicorn
