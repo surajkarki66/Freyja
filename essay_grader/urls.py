@@ -10,7 +10,7 @@ admin.site.site_header = _('Freyja administration')
 
 def welcome_view(request):
     if request.method == 'GET':
-        data = {'message': "Welcome to the Freyja's API!'}
+        data = {'message': "Welcome to the Freyja's API!"}
         return JsonResponse(data)
     else:
         data = {'error': 'Not Found'}
