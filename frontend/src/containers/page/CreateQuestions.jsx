@@ -26,7 +26,6 @@ const CreateQuestionsPage = (props) => {
         ...data,
         question: question,
         set_no: id,
-        min_score: minScore,
         max_score: maxScore,
         username: localStorage.getItem("username"),
       };
