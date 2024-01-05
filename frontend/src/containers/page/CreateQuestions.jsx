@@ -6,8 +6,7 @@ import Axios from "../../axios-url";
 
 const CreateQuestionsPage = (props) => {
   const [question, setQuestion] = useState();
-  const [minScore, setMinScore] = useState(1);
-  const [maxScore, setMaxScore] = useState(12);
+  const [maxScore, setMaxScore] = useState(10);
 
   const history = useHistory();
 
@@ -43,7 +42,6 @@ const CreateQuestionsPage = (props) => {
         submit={onSubmit}
         setQuestion={setQuestion}
         setMaxScore={setMaxScore}
-        setMinScore={setMinScore}
       />
     </div>
   );

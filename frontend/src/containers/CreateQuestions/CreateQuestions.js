@@ -2,18 +2,12 @@ import React from "react";
 
 import classes from "./CreateQuestions.module.css";
 
-const CreateQuestions = ({ setQuestion, setMinScore, setMaxScore, submit }) => {
+const CreateQuestions = ({ setQuestion, setMaxScore, submit }) => {
   return (
     <React.Fragment>
       <form onSubmit={submit}>
         <div className={classes.CreateQuestions}>
           <h3>Add essay</h3>
-          <input
-            type="number"
-            placeholder="Enter the minimum score"
-            onChange={(e) => setMinScore(e.target.value)}
-            required
-          />
           <input
             type="number"
             placeholder="Enter the maximum score"
