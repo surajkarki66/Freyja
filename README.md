@@ -3,6 +3,7 @@
 This is a web app to grade essay using LSTM model using Django REST, React and Tensorflow. The dataset used to train the NLP model is https://www.kaggle.com/mpwolke/hewlett-foundation-essay-scoring 
 
 # Live Preview
+[Click here]()
 
 # Local Preview
 
@@ -47,7 +48,7 @@ To access the admin panel click here: http://127.0.0.1:8000/admin
 
 Note: There are also lots of REST APIs available that you can check.
 
-Documentation: http://127.0.0.1:8000/docs/
+Documentation: http://127.0.0.1:8000/docs/  (must set `DEBUG=True`)
 
 ## b. Now, Run Frontend
 

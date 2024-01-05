@@ -8,3 +8,4 @@ tensorflow
 django-environ
 drf-yasg
 psycopg2-binary
+urllib3==1.26.6
