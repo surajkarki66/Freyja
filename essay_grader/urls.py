@@ -20,7 +20,7 @@ schema_view = get_schema_view(
 
 def welcome_view(request):
     if request.method == 'GET':
-        data = {'message': "Welcome to the Freyja's API!. To see the API documentation, go to http://127.0.0.1:8000/docs"}
+        data = {'message': "Welcome to the Freyja's API!. To see the API documentation, go to https://freyja-5z5x.onrender.com/docs"}
         return JsonResponse(data)
     else:
         data = {'error': 'Not Found'}
