@@ -2,8 +2,9 @@
 
 This is a web app to grade essay using LSTM model using Django REST, React and Tensorflow. The dataset used to train the NLP model is https://www.kaggle.com/mpwolke/hewlett-foundation-essay-scoring 
 
+# Live Preview
 
-# How to Run?
+# Local Preview
 
 ## a. First Run Backend
 
@@ -50,3 +51,24 @@ Documentation: http://127.0.0.1:8000/docs/
 ## b. Now, Run Frontend
 
 ### STEPS:
+1. After running the backend server, you only need to run the frontend.
+2. Open up a new terminal window, and change the directory to `frontend` folder.
+   ```bash
+   cd frontend
+   ```
+3. Install dependencies required by the frontend app.
+   ```bash
+   yarn install
+   ```
+4. Inside `src` directory there is a file with a name `config.js`. Go inside that file and replace the second line of code with the code provided below.
+    ```js
+   export const baseURL = "http://127.0.0.1:8000"
+   ```
+
+5. Run the development server
+   ```bash
+   yarn start
+   ```
+6. Preview: http://localhost:3000
+   
+Happy Coding !!
