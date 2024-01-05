@@ -1,7 +1,9 @@
 django
 django-rest-framework
 django-cors-headers
-drf-yasg
 nltk
 numpy
-gensim==3.8.2
+gensim==4.3.2 
+tensorflow
+django-environ
+drf-yasg
