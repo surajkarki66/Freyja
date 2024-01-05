@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Question
+from .models import Question, Answer
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -12,9 +12,21 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'question', 'set_no', 'min_score',
+        fields = ['id', 'question', 'set_no',
                   'max_score', 'timestamp', 'username']
 
     def get_username_from_author(self, question):
         username = question.author.username
         return username
+
+
+class PredictionSerializer(serializers.ModelSerializer):
+    """
+     Serializes the fields of Prediction.
+
+    """
+
+    class Meta:
+        model = Answer
+        fields = "__all__"
+

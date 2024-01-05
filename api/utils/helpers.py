@@ -1,11 +1,8 @@
 import nltk
 import re
-import math
 import numpy as np
-import gensim.models.keyedvectors as word2vec
 
 from nltk.corpus import stopwords
-from gensim.models import Word2Vec
 
 nltk.download("stopwords")
 
@@ -35,7 +32,7 @@ def makeFeatureVec(words, model, num_features):
     """Make Feature Vector from the words list of an Essay."""
     featureVec = np.zeros((num_features,), dtype="float32")
     num_words = 0.
-    index2word_set = set(model.wv.index2word)
+    index2word_set = set(model.index_to_key)
     for word in words:
         if word in index2word_set:
             num_words += 1
