@@ -1,0 +1,10 @@
+django
+django-rest-framework
+django-cors-headers
+nltk
+numpy
+gensim==4.3.2 
+tensorflow
+drf-yasg
+whitenoise
+gunicorn
