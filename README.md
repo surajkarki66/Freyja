@@ -1,6 +1,6 @@
 # Freyja
 
-This is a web app to grade essay using LSTM model using Django REST, React and Tensorflow. The dataset used to train the NLP model is https://www.kaggle.com/mpwolke/hewlett-foundation-essay-scoring , this project was the education category winner of Quantum Hack 2020.
+This is a web app to grade essay using LSTM model using Django REST, React and Tensorflow. The dataset used to train the NLP model is https://www.kaggle.com/mpwolke/hewlett-foundation-essay-scoring , this project was the education category winner of [Quantum Hack 2020](https://personal-web-api-0xa6.onrender.com/uploads/QH_HackathonWinner-Freyja-Suraj.pdf). This is also an end to end deep learning project.
 
 # How to run?
 
@@ -84,5 +84,7 @@ Documentation: http://127.0.0.1:8000/docs/
    ```
 4. Preview: http://localhost:3000
 
-   
+
+You can check all the IPython notebooks inside `notebooks` directory, that were created during experiment.
+
 Happy Coding !!
