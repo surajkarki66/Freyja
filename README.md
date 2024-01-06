@@ -30,13 +30,12 @@ This is a web app to grade essay using LSTM model using Django REST, React and T
     make migrate
     ```
 
-
-6. If you want to create a super user then enter the following command.
+7. If you want to create a super user then enter the following command.
     ```bash
     make superuser
     ```
 
-7. Run the development server
+8. Run the development server
     ```bash
     make run-server
     ```
@@ -48,7 +47,7 @@ To access the admin panel click here: http://127.0.0.1:8000/admin
 
 Note: There are also lots of REST APIs available that you can check.
 
-Documentation: http://127.0.0.1:8000/docs/  (must set `DEBUG=True`)
+Documentation: http://127.0.0.1:8000/docs/
 
 ## b. Now, Run Frontend
 
