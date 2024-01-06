@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: white;
   border-radius: 5px;
   text-align: center;
@@ -20,6 +20,7 @@
 .item1 {
   grid-column-start: 1;
   grid-column-end: 2;
+  
 }
 .item2 {
   grid-column-start: 2;

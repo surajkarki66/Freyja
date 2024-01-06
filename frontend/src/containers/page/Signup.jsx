@@ -4,8 +4,9 @@ import { Redirect } from "react-router-dom";
 
 import Signup from "../Signup/Signup";
 
-const SignupPage = (props) => {
+const SignupPage = () => {
   const [success, setSuccess] = useState();
+  const [loading, setLoading] = useState(false);
   const [Email, setEmail] = useState();
   const [Username, setUsername] = useState();
   const [Password, setPassword] = useState();
@@ -23,29 +24,37 @@ const SignupPage = (props) => {
   const password2 = (event) => {
     setPassword2(event.target.value);
   };
-  function submit() {
+  function submit(e) {
+    e.preventDefault();
     let data = {
       email: Email,
       username: Username,
       password: Password,
       password2: Password2,
     };
+    setLoading(true);
+    setError("");
     Axios
-      .post("/api/register/", data)
+      .post("/api/user/register/", data)
       .then((response) => {
-        if (typeof response.data.email === Array) {
-          setError(response.data.email[0]);
-        }
-        if (typeof response.data.username === Array) {
-          setError(response.data.username[0]);
-        } else {
-          setSuccess(true);
-        }
+        setEmail("");
+        setLoading(false);
+        setSuccess(true);
       })
       .catch((error) => {
         if (error.response.data.password) {
           setError(error.response.data.password);
         }
+        else if (error.response.data.email) {
+          setError(error.response.data.email[0]);
+        }
+        else if (error.response.data.username) {
+          setError(error.response.data.username[0]);
+        } else {
+          setError("Something went wrong!");
+        }
+        setLoading(false);
+        setSuccess(false);
       });
   }
   return (
@@ -56,6 +65,7 @@ const SignupPage = (props) => {
         passwordChange={(event) => password(event)}
         password2Change={(event) => password2(event)}
         submit={submit}
+        loading={loading}
         error={Error}
       />
       {success ? <Redirect to="/login" /> : null}

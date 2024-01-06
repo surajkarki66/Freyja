@@ -4,39 +4,49 @@ import classes from "./Login.module.css";
 const Login = (props) => {
   return (
     <div>
-      <div className={classes.Login}>
-        <h3>Login</h3>
+      <form onSubmit={props.submit} className={classes.Login}>
+        <h2>
+          <b>LOGIN</b>
+        </h2>
         {props.error ? (
           <h6 style={{ color: "red" }}>Username password is not valid</h6>
         ) : null}
         <div>
-          <h4>Email</h4>
+          <h6>Email</h6>
           <input
             type="email"
-            name="InputEmail1"
-            placeholder="Email"
+            placeholder="Enter an email address"
             onChange={props.emailChange}
+            required
           ></input>
         </div>
         <div>
-          <h4>Password</h4>
+          <h6>Password</h6>
           <input
             type="password"
-            name="InputPassword"
-            placeholder="Password"
+            placeholder="Enter a password"
             onChange={props.passwordChange}
+            required
           ></input>
         </div>
+        <br />
+        <br />
         <div>
           <button
             type="submit"
             className={"btn btn-primary"}
-            onClick={props.submit}
+            disabled={props.loading}
           >
-            Login
+            {props.loading ? (
+              <span>
+                Loading &nbsp;<i className="fa fa-spinner fa-spin"></i>
+              </span>
+            ) : (
+              "Log In"
+            )}
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

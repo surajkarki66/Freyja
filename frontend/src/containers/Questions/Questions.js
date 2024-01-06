@@ -3,7 +3,6 @@ import Question from "./Question/Question";
 
 import classes from "./Questions.module.css";
 
-//This component takes array of question as props named: questionsArray
 const Questions = (props) => {
   const questionSets = props.questionArray.map((ques, _idx) => {
     return (
@@ -17,7 +16,7 @@ const Questions = (props) => {
   });
   return (
     <div className={classes.Questions}>
-      <h1>Questions Set</h1>
+      <h1><b>Essays</b></h1>
       <ul>{questionSets}</ul>
     </div>
   );

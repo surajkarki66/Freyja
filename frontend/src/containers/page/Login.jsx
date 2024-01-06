@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 
 const LoginPage = (props) => {
   const [Email, setEmail] = useState();
+  const [loading, setLoading] = useState(false);
   const [Password, setPassword] = useState();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -15,23 +16,30 @@ const LoginPage = (props) => {
   const password = (event) => {
     setPassword(event.target.value);
   };
-  function submit() {
+  function submit(e) {
+    e.preventDefault();
     const data = {
       username: Email,
       password: Password,
     };
+    setLoading(true);
+    setError("");
     Axios
-      .post("/api/login/", data)
+      .post("/api/user/login/", data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.username);
         setSuccess(true);
+        setLoading(false);
         props.onSuccess();
       })
       .catch((error) => {
         if (error.response.data.non_field_errors) {
           setError(error.response.data.non_field_errors[0]);
+        }else{
+          setError("Something went wrong!");
         }
+        setLoading(false);
       });
   }
   return (
@@ -42,6 +50,7 @@ const LoginPage = (props) => {
         passwordChange={(event) => password(event)}
         submit={submit}
         error={error}
+        loading={loading}
       />
     </div>
   );

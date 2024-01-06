@@ -8,23 +8,27 @@ import Answer from "../Answer/Answer";
 import Grade from "../Grade/Grade";
 import { useEffect } from "react";
 
-function Home(props) {
+function Home() {
   const [q, setQ] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [Loading, setLoading2] = useState(false);
   const [id, setId] = useState(undefined);
-  const [currentQuestion, setCurrentQuestion] = useState(); //current question state
-  const [answer, setAnswer] = useState(""); // User answer state
-  const [grade, setGrade] = useState(); // Grade result
-  const [showGrade, setShowGrade] = useState(false); // For showing the grade.
+  const [currentQuestion, setCurrentQuestion] = useState();
+  const [answer, setAnswer] = useState("");
+  const [grade, setGrade] = useState();
+  const [error, setError] = useState("");
+  const [showGrade, setShowGrade] = useState(false);
   const [responseGrade, setResponseGrade] = useState(Object());
 
   const fetchQuestions = () => {
-    Axios
-      .get("/api/question/")
+    Axios.get("/api/question/")
       .then((response) => {
         const dataResponse = response.data;
+        setLoading(false);
         setQ(dataResponse);
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error);
       });
   };
@@ -42,17 +46,18 @@ function Home(props) {
     } else {
       window.alert("You need to be logged in.");
     }
+    setLoading2(true);
+    setError("");
     Axios.defaults.headers = {
       Authorization: `Token ${token}`,
     };
-    Axios
-      .post("/api/score/" + id + "/", {
-        answer: answer,
-      })
+    Axios.post("/api/score/" + id + "/", {
+      answer: answer,
+    })
       .then((response) => {
         let data = response.data;
-        setResponseGrade({ ...responseGrade, ...data });
         let remark;
+        setResponseGrade({ ...responseGrade, ...data });
         if (data.predicted_score <= data.pass_score) {
           remark = "Bad!";
         } else if (data.predicted_score >= data.pass_score) {
@@ -71,14 +76,20 @@ function Home(props) {
         );
         setGrade(resultGrade);
         setShowGrade(true);
+        setLoading2(false);
+        setError("");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setLoading2(false);
+        if (error.response.data.answer) {
+          setError("Please enter the answer first");
+        } else {
+          setError("Something went wrong!");
+        }
+      });
   }
   useEffect(() => {
     fetchQuestions();
-    if (localStorage.getItem("token")) {
-      setShowGrade(true);
-    }
   }, []);
 
   const singleQuestionHandler = (id) => {
@@ -94,25 +105,33 @@ function Home(props) {
         single
       />
     );
-    setCurrentQuestion(qs); // updating the state of currentquestion
+    setCurrentQuestion(qs);
     setShowGrade(false);
   };
   const inputAnswerHandler = (event) => {
-    // When ever the use enter the answer the answer state update
     let inputAnswer = event.target.value;
     setAnswer(inputAnswer);
   };
   return (
     <div className="App">
       <Questions questionArray={q} singleQuestion={singleQuestionHandler} />
-      {currentQuestion}
-      {currentQuestion ? (
-        <Answer
-          changed={(event) => inputAnswerHandler(event)}
-          gradeMe={postAnswer}
-        />
-      ) : null}
-      {showGrade ? grade : null}
+      {loading ? (
+        <h5 className="loading-icon-home">Loading...</h5>
+      ) : (
+        <>
+          {currentQuestion}
+          {currentQuestion ? (
+            <Answer
+              changed={(event) => inputAnswerHandler(event)}
+              gradeMe={postAnswer}
+              loading={Loading}
+              error={error}
+              showGrade={showGrade}
+            />
+          ) : null}
+          {showGrade ? grade : null}
+        </>
+      )}
     </div>
   );
 }
