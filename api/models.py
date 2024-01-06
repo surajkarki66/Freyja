@@ -7,7 +7,7 @@ from users.models import User
 class Question(models.Model):
     """ A model of the 10 questions. """
     question = models.TextField(max_length=10000)
-    set_no = models.IntegerField(unique=True)
+    set_no = models.IntegerField()
     max_score = models.IntegerField()
     timestamp = models.DateTimeField(
         verbose_name='question_published', auto_now_add=True)
