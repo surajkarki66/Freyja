@@ -29,19 +29,16 @@ from users.models import User
 @api_view(['POST', ])
 @permission_classes((AllowAny,))
 def registration_view(request):
-
     if request.method == 'POST':
         serializer = RegistrationSerializer(data=request.data)
         data = {}
-        if serializer.is_valid():
-            account = serializer.save()
-            data['response'] = 'successfully registered new user.'
-            data['email'] = account.email
-            data['username'] = account.username
-            token = Token.objects.get(user=account).key
-            data['token'] = token
-        else:
-            data = serializer.errors
+        serializer.is_valid(raise_exception=True)
+        account = serializer.save()
+        data['response'] = 'successfully registered new user.'
+        data['email'] = account.email
+        data['username'] = account.username
+        token = Token.objects.get(user=account).key
+        data['token'] = token
         return Response(data)
 
 
