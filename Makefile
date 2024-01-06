@@ -1,22 +1,28 @@
-.PHONY: install
-install:
-	pip install -r "requirements.txt"
+.PHONY: install-backend
+install-backend:
+	cd backend;pip install -r "requirements.txt"
+
+.PHONY: install-frontend
+install-frontend:
+	cd frontend;yarn install
 
 .PHONY: migrations
 migrations:
-	python manage.py makemigrations
+	cd backend;python manage.py makemigrations
 
 .PHONY: migrate
 migrate:
-	python manage.py migrate
+	cd backend;python manage.py migrate;python manage.py loaddata --app users initial_data;python manage.py loaddata --app api initial_data
+
 
 .PHONY: superuser
 superuser:
-	python manage.py createsuperuser
+	cd backend;python manage.py createsuperuser
 
-.PHONY: run-server
-run-server:
-	python manage.py runserver
+.PHONY: run-backend
+run-backend:
+	cd backend;python manage.py runserver
 
-.PHONY: update
-update: install migrate ;
+.PHONY: run-frontend
+run-frontend:
+	cd frontend;yarn start
