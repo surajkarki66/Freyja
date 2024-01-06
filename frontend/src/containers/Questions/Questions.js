@@ -10,6 +10,7 @@ const Questions = (props) => {
         key={ques.id}
         id={ques.id}
         questionText={ques.question}
+        setNo = {ques.set_no}
         sq={props.singleQuestion}
       />
     );

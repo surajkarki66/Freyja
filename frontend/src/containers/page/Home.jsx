@@ -29,7 +29,6 @@ function Home() {
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
       });
   };
   const fetchSingleQuestion = (id) => {
@@ -48,9 +47,6 @@ function Home() {
     }
     setLoading2(true);
     setError("");
-    Axios.defaults.headers = {
-      Authorization: `Token ${token}`,
-    };
     Axios.post("/api/score/" + id + "/", {
       answer: answer,
     })
@@ -100,6 +96,8 @@ function Home() {
     qs = (
       <Question
         questionText={question.question}
+        sourceEssay={question.source_essay}
+        setNo = {question.set_no}
         author={question.username}
         time={question.timestamp.slice(0, 10)}
         single
@@ -107,6 +105,10 @@ function Home() {
     );
     setCurrentQuestion(qs);
     setShowGrade(false);
+    window.scrollBy({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   };
   const inputAnswerHandler = (event) => {
     let inputAnswer = event.target.value;

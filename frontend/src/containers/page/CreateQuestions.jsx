@@ -6,6 +6,7 @@ import Axios from "../../axios-url";
 
 const CreateQuestionsPage = () => {
   const [question, setQuestion] = useState();
+  const [sourceEssay, setSourceEssay] = useState();
   const [loading, setLoading] = useState(false);
   const [maxScore, setMaxScore] = useState(null);
   const [setNo, setSetNo] = useState(null);
@@ -22,6 +23,7 @@ const CreateQuestionsPage = () => {
       question: question,
       set_no: setNo,
       max_score: maxScore,
+      source_essay: sourceEssay,
     }
     setLoading(true);
     Axios.post("/api/question/create/", data)
@@ -37,6 +39,9 @@ const CreateQuestionsPage = () => {
           }
           else if (error.response.data.set_no && error.response.data.set_no.length > 0) {
             setError("Please enter a set number");
+          }
+          else if (error.response.data.source_essay && error.response.data.source_essay.length > 0) {
+            setError("Please enter a source essay");
           }
           else if (error.response.data.max_score && error.response.data.max_score.length > 0) {
             setError("Please enter a maximum score for the essay");
@@ -55,6 +60,7 @@ const CreateQuestionsPage = () => {
         setQuestion={setQuestion}
         setMaxScore={setMaxScore}
         setSetNo={setSetNo}
+        setSourceEssay={setSourceEssay}
         loading={loading}
         error={error}
       />

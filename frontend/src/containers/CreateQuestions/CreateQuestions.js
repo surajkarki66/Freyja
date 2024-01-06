@@ -7,8 +7,9 @@ const CreateQuestions = ({
   setMaxScore,
   submit,
   setSetNo,
+  setSourceEssay,
   error,
-  loading
+  loading,
 }) => {
   return (
     <React.Fragment>
@@ -36,13 +37,23 @@ const CreateQuestions = ({
               required
             />
           </div>
+
+          <div>
+            <h6>Source Essay</h6>
+            <textarea
+              name="promsource_essaypt"
+              rows="4"
+              cols="20"
+              placeholder="Source Essay"
+              onChange={(e) => setSourceEssay(e.target.value)}
+              required
+            />
+          </div>
           <div>
             <h6>Question</h6>
-            <textarea
-              name="message"
-              rows="4"
-              cols="60"
-              placeholder="Question"
+            <input
+              type="text"
+              placeholder="Enter the question title"
               onChange={(e) => setQuestion(e.target.value)}
               required
             />

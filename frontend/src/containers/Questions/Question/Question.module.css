@@ -13,9 +13,10 @@ h3 {
 }
 
 .Ptag {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-style: italic;
 }
+
 p {
   text-align: start;
 }
@@ -29,4 +30,8 @@ p {
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.Q:hover {
+  color: rgb(134, 223, 134); 
 }
